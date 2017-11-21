@@ -6,7 +6,7 @@
  
 struct person {
 	char id[6];
-	char sex;
+	char sex[2];
 	int a_point;
 	int b_point;
 };
@@ -41,8 +41,8 @@ int main(void) {
     	char    *user[4];
     	int     i, cnt;
     	cnt = split( str, ", " , user );
-    	//p[num].id = user[0];
-    	p[num].sex = *user[1];
+    	strcpy(p[num].id ,user[0]);
+    	strcpy(p[num].sex ,user[1]);
     	p[num].a_point = atoi(user[2]);
     	p[num].b_point = atoi(user[3]);
         num++;
