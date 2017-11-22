@@ -1,6 +1,64 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+
+// \‘¢‘Ì‚Ì’è‹`itypedef‚ÅŒ^’è‹`‚µ‚Ä‚¢‚é‚Ì‚ÅAŽg—pŽž‚Éstruct‚ð‚Â‚¯‚È‚­‚Ä—Ç‚¢j
+typedef struct Record {
+    char id[10];
+    char gender[5];
+    int score1;
+    int score2;
+} Record;
+
+int main(void) {
+    FILE *fp = fopen("Lesson08_1.txt", "r");
+    Record records[20];         // \‘¢‘Ì”z—ñ
+    int size = 0;               // \‘¢‘Ì”z—ñ‚Ì—v‘f”‚ð‹L‰¯‚·‚é‚½‚ß‚Ì•Ï”
+    char str[20];               // ƒtƒ@ƒCƒ‹‚©‚ç“Ç‚Ýž‚ñ‚¾1s‚Ì•¶Žš—ñ‚ðˆêŽž“I‚É‹L‰¯‚·‚é‚½‚ß‚Ì•Ï”
+    
+    //ˆês•ª‚ð“Ç‚Ýž‚Ýstr‚É‘ã“ü(sizesof(str)•ª‚ÌƒoƒCƒg”‚ðØ‚èo‚·)
+    while (fgets(str, sizeof(str), fp) != NULL) {
+        // ID‚ÌØ‚èo‚µ
+        char *token = strtok(str, ",");
+        //1A001,F,87,87
+        strcpy(records[size].id, token);
+        
+        // «•Ê‚ÌØ‚èo‚µ
+        //F,87,87
+        token = strtok(NULL, ",");
+        strcpy(records[size].gender, token);
+        
+        // “¾“_1‚ÌØ‚èo‚µ
+        token = strtok(NULL, ",");
+        records[size].score1 = atoi(token);
+        
+        // “¾“_2‚ÌØ‚èo‚µ
+        token = strtok(NULL, ",");
+        records[size].score2 = atoi(token);
+        
+        size++;
+    }
+    
+    int sum_A, sum_B;
+    float average_A, average_B;
+    for(int i = 0; i < size; i++){
+        sum_A += records[i].score1;
+        sum_B += records[i].score2;
+    }
+    average_A = (float)sum_A/size;
+    average_B = (float)sum_B/size;
+    
+    printf("Average:\n");
+    printf("A : %f\n", average_A);
+    printf("B : %f\n", average_B);
+}
+
+
+
+/*#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define N 256 
  
@@ -63,3 +121,4 @@ int main(void) {
  
 	return 0;
 }
+*/
